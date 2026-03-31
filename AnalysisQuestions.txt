@@ -1,0 +1,20 @@
+1. What would happen if you used notify() instead of notifyAll()? Why might this cause problems?   
+        notify() wakes up only one waiting thread, while notifyAll() wakes all waiting threads. 
+        Using notify() may cause problems if the wrong thread wakes up. When a thread is woken, if it fails, it goes back to waiting. 
+        So if we wake up the wrong thread, we would be stuck waiting again, and possibly cause a deadlock.    
+
+2. Why must wait() be called inside a while loop rather than an if statement? What problem does this solve?   
+      	wait() must be called inside a while loop because "when a thread wakes up from a wait(), it must re-check the condition." 
+        If statements only check the condition once, using a while loop ensures repeated checks, and prevents subtle errors in threads proceeding when they should not.   
+
+3. What would happen if the produce() method wasn't synchronized? Could two producers add items at the same time?   
+      	If the produce() method wasn't synchronized, two or more producers could make alterations at the same time. 
+        This would cause a race condition and result in inconsistent data because multiple threads are accessing and modifying the shared buffer simultaneously.    
+
+4. What happens if you forget to call notifyAll() in the produce() method? How would this affect the consumer thread?   
+      	Forgetting to call notifyAll() in the produce() method may result in the waiting consumer never being notified and woken. 
+        The consumer would stay waiting where it should be running, making the program appear frozen or half-completed.   
+
+5. Why does wait() release the lock? What would happen if it didn't?   
+        Wait() releases the lock so other threads can 'compete' to enter the synchronized method and make their alterations. 
+        If wait() did not release the lock, this would cause a deadlock: no thread could enter or modify the synchronized method, and every thread would be blocked from advancing.    
