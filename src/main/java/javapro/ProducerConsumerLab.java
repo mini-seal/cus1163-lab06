@@ -49,7 +49,7 @@ public class ProducerConsumerLab {
         @Override
         public void run() {
             try {
-				for(int i = 0; i <= 9; i++) {
+				for(int i = 0; i < 10; i++) {
 					buffer.produce(i);
 				}
 				System.out.println("[Producer] finished producing 10 items");
@@ -71,6 +71,7 @@ public class ProducerConsumerLab {
             try {
             	for(int i=0; i<10; i++) {
             		buffer.consume();
+			Thread.sleep(50);
             	}
             	System.out.println("[Consumer] finished consuming 10 items");
             }catch(InterruptedException e) {
